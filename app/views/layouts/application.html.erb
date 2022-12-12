@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lab12</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+  <div class="container">
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+  <%= button_to 'Newton numbers', calc_input_path %>
+  <% if current_user %>
+    <div class="container">"Welcome "<%= current_user.email %></div>
+    <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo: false } %>
+    <%= button_to "See all users", see_user_All_path, method: :get, data: { turbo: false } %>
+    <%= button_to "Edit profile",  '/users/edit/', method: :get, data: { turbo: false } %>
+    <%= button_to "Show profile", see_user_ShowYou_path, method: :get, data: { turbo: false } %>
+  <% else %>
+    <%= link_to 'Log in', new_user_session_path %>
+    <%= link_to "Sign Up", new_user_registration_path %>
+  <% end %>
+  <%= yield %>
+  </div>
+  </body>
+</html>
